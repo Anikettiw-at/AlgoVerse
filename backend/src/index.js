@@ -13,10 +13,18 @@ const cors = require('cors')
 
 // console.log("Hello")
 
+// app.use(cors({
+//     origin: 'http://localhost:5173',
+//     credentials: true 
+// }))
 app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true 
-}))
+  origin: [
+    "http://localhost:5173",
+    "https://frontend-coding-roan.vercel.app/"   
+  ],
+  credentials: true
+}));
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -34,9 +42,15 @@ const InitalizeConnection = async ()=>{
         await Promise.all([main(),redisClient.connect()]);
         console.log("DB Connected");
         
-        app.listen(process.env.PORT, ()=>{
-            console.log("Server listening at port number: "+ process.env.PORT);
-        })
+        // app.listen(process.env.PORT, ()=>{
+        //     console.log("Server listening at port number: "+ process.env.PORT);
+        // })
+        const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log("Server listening at port number:", PORT);
+});
+
 
     }
     catch(err){

@@ -15,11 +15,16 @@ const userSchema = new Schema({
     },
     emailId:{
         type:String,
-        required:true,
+        // required:true,
+        required: [true, "Email is required"],
         unique:true,
         trim: true,
         lowercase:true,
         immutable: true,
+    //      match: [
+    //   /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    //   "Invalid email format"
+    // ],
     },
     age:{
         type:Number,
@@ -31,13 +36,25 @@ const userSchema = new Schema({
         enum:['user','admin'],
         default: 'user'
     },
-    problemSolved:{
-        type:[{
-            type:Schema.Types.ObjectId,
-            ref:'problem',
-            unique:true
-        }],
-    },
+    // problemSolved:{
+    //     type:[{
+    //         type:Schema.Types.ObjectId,
+    //         ref:'problem',
+    //         unique:true       //  iski wjh se signup me problem
+    //     }],
+    // }
+    
+    problemSolved: {
+  type: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "problem"
+    }
+  ],
+  default: []
+}
+
+    ,
     password:{
         type:String,
         required: true
