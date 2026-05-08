@@ -81,18 +81,10 @@ const redisClient = require("./config/redis");
 // ================== CORS ==================
 app.use(
   cors({
-    origin: (origin, callback) => {
-      const allowedOrigins = [
-        "http://localhost:5173",
-        "https://frontend-coding-roan.vercel.app"
-      ];
-
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("CORS not allowed"));
-      }
-    },
+    origin: [
+      "http://localhost:5173",
+      "https://frontend-coding-roan.vercel.app",
+    ],
     credentials: true,
   })
 );
